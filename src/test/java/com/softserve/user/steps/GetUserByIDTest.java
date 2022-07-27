@@ -20,7 +20,8 @@ public class GetUserByIDTest {
         assertThat("Leanne Graham").isEqualTo(user.getName());
         assertThat("Bret").isEqualTo(user.getUsername());
         assertThat("Gwenborough").isEqualTo(user.getUserAddress().getCity());
-
+        assertThat(10).isEqualTo(userList.size());
+        log.info("List of users contains " + userList.size() + " users");
 
 
 
