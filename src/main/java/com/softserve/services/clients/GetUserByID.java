@@ -10,13 +10,15 @@ import org.apache.log4j.Logger;
 import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
 public class GetUserByID {
     private static final Logger log = LogManager.getLogger(GetUserByID.class);
 
-    public static UserDTO getUSerByID (ArrayList<UserDTO> userDTOList, int ID) throws IOException {
+    public static UserDTO getUSerByID (int ID) throws IOException {
+        List <UserDTO> userDTOList = CreateUserList.createUserList();
         if (ID>RestServices.getUsersCountByDefault()){
             log.error("ID " + ID + " is invalid");
         }

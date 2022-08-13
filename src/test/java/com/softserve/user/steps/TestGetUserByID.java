@@ -16,7 +16,7 @@ public class TestGetUserByID {
     @Test
     public static void GetUserByID() throws IOException {
         ArrayList<UserDTO> userDTOList = CreateUserList.createUserList();
-        UserDTO userDTO = GetUserByID.getUSerByID(userDTOList,1);
+        UserDTO userDTO = GetUserByID.getUSerByID(1);
         //validation
         assertThat("Leanne Graham").isEqualTo(userDTO.getName());
         log.info("Name matches with expected result");
