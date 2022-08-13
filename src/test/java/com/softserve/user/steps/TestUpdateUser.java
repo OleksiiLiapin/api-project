@@ -1,28 +1,27 @@
 package com.softserve.user.steps;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.softserve.steps.UpdateUser;
-import com.softserve.user.User;
+import com.softserve.services.clients.UpdateUser;
+import com.softserve.model.user.UserDTO;
 import org.testng.annotations.Test;
 import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Logger;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UpdateUserTest {
+public class TestUpdateUser {
 
     @Test
     public static void verifyUserIsUpdated() throws IOException {
         Logger log = Logger.getLogger(UpdateUser.class.toGenericString());
         for (int i = 1; i <= 10 ; i++) {
-            User rootUser = User.createBasicUser();
-            User updatedUser = UpdateUser.updateUser(rootUser, i);
-            rootUser.setId(i);
-            updatedUser.setId(i);
-            assertThat(rootUser).usingRecursiveComparison()
+            UserDTO rootUserDTO = UserDTO.createBasicUser();
+            UserDTO updatedUserDTO = UpdateUser.updateUser(rootUserDTO, i);
+            rootUserDTO.setId(i);
+            updatedUserDTO.setId(i);
+            assertThat(rootUserDTO).usingRecursiveComparison()
                     .withStrictTypeChecking()
-                    .isEqualTo(updatedUser);
-            log.info("User id:" + i + " is updated");
+                    .isEqualTo(updatedUserDTO);
+            log.info("User ID: " + updatedUserDTO.getId() + "\n" + "USer name " + updatedUserDTO.getName() + " updated");
         }
     }
 
@@ -30,8 +29,8 @@ public class UpdateUserTest {
     public static void verifyUserCannotBeUpdatedWithWrongID() throws IOException {
         int rand = ThreadLocalRandom.current().nextInt(11,1_000_000);
         Logger log = Logger.getLogger(UpdateUser.class.toGenericString());
-        User rootUser = User.createBasicUser();
-        User updatedUser = UpdateUser.updateUser(rootUser, rand);
+        UserDTO rootUserDTO = UserDTO.createBasicUser();
+        UserDTO updatedUserDTO = UpdateUser.updateUser(rootUserDTO, rand);
 
     }
 }

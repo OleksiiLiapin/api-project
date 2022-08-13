@@ -1,6 +1,6 @@
-package com.softserve.util.services;
+package com.softserve.services;
 
-import com.softserve.steps.CreateUserList;
+import com.softserve.services.clients.CreateUserList;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
@@ -20,9 +20,7 @@ public abstract class RestServices {
     public static String getUsersUrl(){
         return USERS_URL;
     }
-//    public static String getUSER_UPDATE_id(){
-//        return USER_UPDATE_id;
-//    }
+
     public static Integer getUsersCountByDefault() throws IOException {
         return CreateUserList.createUserList().size();
     }

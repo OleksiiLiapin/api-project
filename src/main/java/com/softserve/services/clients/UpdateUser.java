@@ -1,17 +1,12 @@
-package com.softserve.steps;
+package com.softserve.services.clients;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.softserve.user.Address;
-import com.softserve.user.Company;
-import com.softserve.user.GeoLocation;
-import com.softserve.user.User;
-import com.softserve.util.services.RestServices;
+import com.softserve.model.user.UserDTO;
+import com.softserve.services.RestServices;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.testng.annotations.Test;
 
 import java.io.IOException;
 
@@ -21,11 +16,11 @@ import static io.restassured.RestAssured.given;
 public class UpdateUser {
     private static final Logger log = LogManager.getLogger(CreateUserList.class);
 
-    public static User updateUser (User user, int ID) throws IOException {
+    public static UserDTO updateUser (UserDTO userDTO, int ID) throws IOException {
         Response response = given()
                 .header("Content-Type", "application/json")
                 .contentType(ContentType.JSON)
-                .body(user)
+                .body(userDTO)
                 .when()
                 .put("https://jsonplaceholder.typicode.com/users/" + ID);
 
@@ -38,7 +33,7 @@ public class UpdateUser {
         log.info("Put request to update user is done");
         String jsonString = response.asString();
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(jsonString,User.class);
+        return mapper.readValue(jsonString, UserDTO.class);
     }
 
 

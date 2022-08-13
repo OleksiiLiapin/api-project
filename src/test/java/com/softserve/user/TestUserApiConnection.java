@@ -1,20 +1,16 @@
 package com.softserve.user;
 
-import com.softserve.steps.CreateUserList;
-import com.softserve.util.services.RestServices;
+import com.softserve.services.RestServices;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
-import java.util.List;
-
-public class UserApiConnectionTest {
+public class TestUserApiConnection {
     @Test
     void statusCodeIs200GetUser() {
-        Logger log = Logger.getLogger(UserApiConnectionTest.class.getName());
+        Logger log = Logger.getLogger(TestUserApiConnection.class.getName());
         try  {
             Response response = RestAssured.get(RestServices.getBase_URL()+RestServices.getUsersUrl());
             Assert.assertEquals(200, response.getStatusCode());

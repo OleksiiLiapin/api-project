@@ -1,35 +1,34 @@
 package com.softserve.user.steps;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.softserve.steps.CreateNewUser;
-import com.softserve.user.User;
+import com.softserve.services.clients.CreateNewUser;
+import com.softserve.model.user.UserDTO;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import java.util.Random;
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Logger;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class CreateNewUserTest {
+public class TestCreateNewUser {
     @Test
     public static void verifyUSerCanBeCreated() throws JsonProcessingException {
         Logger log = Logger.getLogger(CreateNewUser.class.toString());
 
-        User rootUser = User.createBasicUser();
-        User newUser = CreateNewUser.createNewUser(rootUser);
+        UserDTO rootUserDTO = UserDTO.createBasicUser();
+        UserDTO newUserDTO = CreateNewUser.createNewUser(rootUserDTO);
 
         int count = 0;
         while (count < 10) {
             int rand = ThreadLocalRandom.current().nextInt(11,1_000_000);
-            rootUser.setId(rand);
-            newUser.setId(rand);
+            rootUserDTO.setId(rand);
+            newUserDTO.setId(rand);
 
-            Assert.assertEquals(rootUser.getName(), newUser.getName());
-            assertThat(rootUser).usingRecursiveComparison()
+            Assert.assertEquals(rootUserDTO.getName(), newUserDTO.getName());
+            assertThat(rootUserDTO).usingRecursiveComparison()
                     .withStrictTypeChecking()
-                    .isEqualTo(newUser);
+                    .isEqualTo(newUserDTO);
 
             log.info("User with id: " + rand + " is created");
             count++;

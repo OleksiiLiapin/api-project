@@ -1,44 +1,38 @@
-package com.softserve.user;
+package com.softserve.model.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Company {
+public class CompanyDTO {
     @JsonProperty(value = "name")
     private String companyName;
     private String catchPhrase;
     private String bs;
 
-    public Company() {
-        super();
-    }
-
-    public Company(String companyName, String catchPhrase, String bs) {
-        this.companyName = companyName;
-        this.catchPhrase = catchPhrase;
-        this.bs = bs;
-    }
 
     public String getCompanyName() {
         return companyName;
     }
 
-    public void setCompanyName(String companyName) {
+    public CompanyDTO setCompanyName(String companyName) {
         this.companyName = companyName;
+        return this;
     }
 
     public String getCatchPhrase() {
         return catchPhrase;
     }
 
-    public void setCatchPhrase(String catchPhrase) {
+    public CompanyDTO setCatchPhrase(String catchPhrase) {
         this.catchPhrase = catchPhrase;
+        return this;
     }
 
     public String getBs() {
         return bs;
     }
 
-    public void setBs(String bs) {
+    public CompanyDTO setBs(String bs) {
         this.bs = bs;
+        return this;
     }
 }
