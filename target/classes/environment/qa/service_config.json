@@ -1,0 +1,8 @@
+{
+  "jsonPlaceholder" : {
+    "baseUrl" : "https://jsonplaceholder.typicode.com/"
+  },
+  "Login": {
+    "Admin" : "Password1"
+  }
+}

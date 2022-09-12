@@ -1,7 +1,6 @@
 package com.softserve;
 
 import com.softserve.model.user.UserDTO;
-import com.softserve.services.clients.CreateUserList;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -14,12 +13,12 @@ import static io.restassured.RestAssured.given;
 
 public class Main {
 
-    static Logger log = Logger.getLogger(CreateUserList.class.getName());
+    static Logger log = Logger.getLogger(Main.class.getName());
 
     public static void main(String[] args) throws IOException {
 
 
-        UserDTO dto = UserDTO.createBasicUser();
+        UserDTO dto = UserDTO.createRootUser();
 
         System.out.println(
                 dto.getName() + " " +

@@ -6,7 +6,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class UserDTO {
-    private Integer id;
+    private String id;
     private String name;
     private String username;
     private String email;
@@ -19,7 +19,7 @@ public class UserDTO {
 
 
     @JsonIgnore
-    public static UserDTO createBasicUser(){
+    public static UserDTO createRootUser(){
         UserDTO userDTO = new UserDTO()
                 .setName("Oleksii").setUsername("Cheezy")
                 .setEmail("OleksiiCheezy@gmail.com")
@@ -31,26 +31,12 @@ public class UserDTO {
         return userDTO;
     }
 
-//    public UserDTO() {
-//        super();
-//    }
-//
-//    public UserDTO(Integer id, String name, String username, String email, String phone, String website, AddressDTO userAddressDTO, CompanyDTO userCompanyDTO) {
-//        this.id = id;
-//        this.name = name;
-//        this.email = email;
-//        this.phone = phone;
-//        this.website = website;
-//        this.username = username;
-//        this.userAddressDTO = userAddressDTO;
-//        this.userCompanyDTO = userCompanyDTO;
-//    }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public UserDTO setId(Integer id) {
+    public UserDTO setId(String id) {
         this.id = id;
         return this;
     }
@@ -126,13 +112,32 @@ public class UserDTO {
 
         UserDTO userDTO = (UserDTO) o;
 
-        return new EqualsBuilder().append(id, userDTO.id).append(name, userDTO.name).append(username, userDTO.username).append(email, userDTO.email).append(phone, userDTO.phone).append(website, userDTO.website).append(userAddressDTO, userDTO.userAddressDTO).append(userCompanyDTO, userDTO.userCompanyDTO).isEquals();
+        return new EqualsBuilder()
+                .append(id, userDTO.id)
+                .append(name, userDTO.name)
+                .append(username, userDTO.username)
+                .append(email, userDTO.email)
+                .append(phone, userDTO.phone)
+                .append(website, userDTO.website)
+                .append(userAddressDTO, userDTO.userAddressDTO)
+                .append(userCompanyDTO, userDTO.userCompanyDTO)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(id).append(name).append(username).append(email).append(phone).append(website).append(userAddressDTO).append(userCompanyDTO).toHashCode();
+        return new HashCodeBuilder(17, 37)
+                .append(id).append(name)
+                .append(username).append(email)
+                .append(phone).append(website)
+                .append(userAddressDTO)
+                .append(userCompanyDTO)
+                .toHashCode();
     }
+
+
+
+
 
     @Override
     public String toString() {
@@ -154,4 +159,7 @@ public class UserDTO {
                 ", userCompanyCatchPhraseDTO=' " + userCompanyDTO.getCompanyName() + '\'' +
                 '}';
     }
+
+
+
 }

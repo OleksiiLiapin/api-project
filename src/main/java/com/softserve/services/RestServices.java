@@ -1,6 +1,7 @@
 package com.softserve.services;
 
-import com.softserve.services.clients.CreateUserList;
+import com.softserve.services.clients.UserCRUD;
+import com.softserve.util.ProvideServiceConfig;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
@@ -8,29 +9,25 @@ import io.restassured.specification.RequestSpecification;
 import java.io.IOException;
 
 public abstract class RestServices {
-    private static final String BASE_URL = "https://jsonplaceholder.typicode.com/";
-    private static final String USERS_URL = "users/";
+    private static final String BASE_URL = ProvideServiceConfig.getService("jsonPlaceholder");
+    private static final String USERS_URL_ENDPOINT = "users";
 
-
-    private static final Integer usersCountByDefault = 0;
 
     public static String getBase_URL(){
         return BASE_URL;
     }
     public static String getUsersUrl(){
-        return USERS_URL;
-    }
-
-    public static Integer getUsersCountByDefault() throws IOException {
-        return CreateUserList.createUserList().size();
+        return USERS_URL_ENDPOINT;
     }
 
 
+//Specification
+    public static RequestSpecification getReqSpec (){
+       RequestSpecBuilder REQ_SPEC =
+                new RequestSpecBuilder()
+                        .setBaseUri(getBase_URL())
+                        .setContentType(ContentType.JSON);
+       return REQ_SPEC.build();
+    }
 
-    public static final RequestSpecification REQ_SPEC =
-            new RequestSpecBuilder()
-                    .setBaseUri(getBase_URL())
-                    .setBasePath(getUsersUrl())
-                    .setContentType(ContentType.JSON)
-                    .build();
 }
