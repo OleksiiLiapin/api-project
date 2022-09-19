@@ -19,20 +19,23 @@ public class TestUserCRUD {
             description = "Method: POST. Test verifies that new user can be created")
     public static void verifyUSerCanBeCreated() {
         UserDTO rootUserDTO = UserDTO.createRootUser();
-        rootUserDTO.setId("11");
-        UserDTO newUserDTO = UserCRUD.createNewUser(rootUserDTO);
-        Assertions.assertThat(newUserDTO.getName()).isEqualTo(rootUserDTO.getName());
-        LOG.info("Name matched: " + newUserDTO.getName());
-        Assertions.assertThat(newUserDTO.getUsername()).isEqualTo(rootUserDTO.getUsername());
-        LOG.info("User name matched: " + newUserDTO.getUsername() );
-        Assertions.assertThat(newUserDTO.getId()).isEqualTo(rootUserDTO.getId());
-        LOG.info("id match: " + newUserDTO.getId() );
+        UserDTO newUserDTO = UserCRUD.createUser(rootUserDTO);
+
+        Assertions.assertThat(newUserDTO)
+                .usingRecursiveComparison()
+                .ignoringAllOverriddenEquals()
+                .ignoringFields("id")
+                .isEqualTo(rootUserDTO);
+
     }
 
     @Test (testName = "TC-02",
             description = "METHOD:GET. Test verified that user can be retrieved by id")
     public static void GetUserByID() throws IOException {
-        UserDTO userDTO = UserCRUD.getUser("1");
+
+        String id = "1";
+        UserDTO userDTO = UserCRUD.getUserById(id);
+
         //validation
         assertThat(userDTO.getName()).isEqualTo("Leanne Graham");
         LOG.info("Name matches with expected result");
@@ -44,21 +47,10 @@ public class TestUserCRUD {
 
     @Test (testName = "TC-03",
             description = "MEHTHOD: GET. Test verifies that all users can be retrieved")
-    public static void getUserList() throws IOException {
-        List<UserDTO> userDTOList = UserCRUD.createUserList();
+    public static void getUserList() {
+        List<UserDTO> users = UserCRUD.getAll();
 
-        assertThat(userDTOList.stream()
-                .findFirst().get().getUsername()).isEqualTo("Bret") ;
-        assertThat(userDTOList.get(userDTOList.size()-1).getUsername()).isEqualTo("Moriah.Stanton");
-
-        userDTOList.forEach(us -> {
-            System.out.println(
-                    us.getId() + " " +
-                            us.getUsername()
-            );
-        });
-
-        Assertions.assertThat(userDTOList)
+        Assertions.assertThat(users)
                 .hasSize(10)
                 .extracting("name")
                 .contains(
@@ -70,23 +62,19 @@ public class TestUserCRUD {
     @Test (testName = "TC-04",
             description = "METHOD:POST . Method verify that user can be updated")
     public static void updateUserTest(){
+        String id ="1";
         UserDTO userDTO = UserDTO.createRootUser();
         UserDTO updatedUser = null;
         try {
-            updatedUser = UserCRUD.updateUser("11", userDTO);
-        } catch (IllegalStateException | IOException e) {
+            updatedUser = UserCRUD.updateUser(userDTO, id);
+        } catch (IllegalStateException e) {
             LOG.info("Catch error that user cannot be updated - Correct");
         }
 
-        Assertions.assertThat(updatedUser.getId()).isEqualTo("10");
-        Assertions.assertThat(updatedUser.getName()).isEqualTo("Oleksii");
-        Assertions.assertThat(updatedUser.getUsername()).isEqualTo("Cheezy");
-        Assertions.assertThat(updatedUser.getUserAddress().getSuite()).isEqualTo("123");
-
-
-
+        Assertions.assertThat(userDTO)
+                .usingRecursiveComparison()
+                .ignoringAllOverriddenEquals()
+                .ignoringFields("id")
+                .isEqualTo(updatedUser);
     }
-
-
-
 }

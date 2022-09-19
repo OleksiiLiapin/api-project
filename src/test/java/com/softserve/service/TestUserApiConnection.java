@@ -8,7 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class TestUserApiConnection {
-    @Test
+    @Test (description = "Verify that GET method returns 200 OK")
     void statusCodeIs200GetUser() {
         Logger log = Logger.getLogger(TestUserApiConnection.class.getName());
         try  {
