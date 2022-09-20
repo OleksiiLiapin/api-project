@@ -20,7 +20,7 @@ public class RestServices {
     }
 
 
-//Specification
+//Specification//
     public static RequestSpecification getReqSpec (){
        RequestSpecBuilder REQ_SPEC =
                 new RequestSpecBuilder()
