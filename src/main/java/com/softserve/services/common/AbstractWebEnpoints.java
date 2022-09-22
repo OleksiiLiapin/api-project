@@ -1,7 +1,5 @@
-package com.softserve.services;
+package com.softserve.services.common;
 
-import com.softserve.model.user.UserDTO;
-import com.softserve.settings.HTTPStatusList;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;

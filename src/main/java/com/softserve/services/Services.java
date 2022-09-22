@@ -1,5 +1,7 @@
 package com.softserve.services;
 
+import com.softserve.services.common.RestServices;
+
 public class Services {
     public Services() {
     }

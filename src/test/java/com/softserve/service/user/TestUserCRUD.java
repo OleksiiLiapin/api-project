@@ -14,28 +14,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TestUserCRUD {
     public static final Logger LOG = Logger.getLogger(UserCRUD.class.toString());
 
-
     @Test(testName = "TC-01",
             description = "Method: POST. Test verifies that new user can be created")
-    public static void verifyUSerCanBeCreated() {
+    public void verifyUSerCanBeCreated() {
         UserDTO rootUserDTO = UserDTO.createRootUser();
         UserDTO newUserDTO = UserCRUD.createUser(rootUserDTO);
-
         Assertions.assertThat(newUserDTO)
                 .usingRecursiveComparison()
                 .ignoringAllOverriddenEquals()
                 .ignoringFields("id")
                 .isEqualTo(rootUserDTO);
-
     }
 
     @Test (testName = "TC-02",
             description = "METHOD:GET. Test verified that user can be retrieved by id")
-    public static void GetUserByID() throws IOException {
-
+    public void GetUserByID() {
         String id = "1";
         UserDTO userDTO = UserCRUD.getUserById(id);
-
         //validation
         assertThat(userDTO.getName()).isEqualTo("Leanne Graham");
         LOG.info("Name matches with expected result");
@@ -47,7 +42,7 @@ public class TestUserCRUD {
 
     @Test (testName = "TC-03",
             description = "MEHTHOD: GET. Test verifies that all users can be retrieved")
-    public static void getUserList() {
+    public void getUserList() {
         List<UserDTO> users = UserCRUD.getAll();
 
         Assertions.assertThat(users)
@@ -61,7 +56,7 @@ public class TestUserCRUD {
 
     @Test (testName = "TC-04",
             description = "METHOD:POST . Method verify that user can be updated")
-    public static void updateUserTest(){
+    public void updateUserTest(){
         String id ="1";
         UserDTO userDTO = UserDTO.createRootUser();
         UserDTO updatedUser = null;

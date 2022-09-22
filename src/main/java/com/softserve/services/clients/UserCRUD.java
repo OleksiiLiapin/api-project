@@ -1,9 +1,9 @@
 package com.softserve.services.clients;
 
 import com.softserve.model.user.UserDTO;
-import com.softserve.services.AbstractWebEnpoints;
-import com.softserve.services.RestServices;
+import com.softserve.services.common.AbstractWebEnpoints;
 import com.softserve.settings.HTTPStatusList;
+import com.softserve.util.ProvideServiceConfig;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import org.apache.log4j.LogManager;
@@ -16,6 +16,9 @@ import static io.restassured.RestAssured.given;
 
 public class UserCRUD extends AbstractWebEnpoints {
     private static final Logger LOG = LogManager.getLogger(UserCRUD.class);
+    private static final String BASE_URL = ProvideServiceConfig.getService("jsonPlaceholder");
+    private static final String USERS_URL_ENDPOINT = "users";
+    private static final RequestSpecification requestSpecification = getReqSpec().baseUri(BASE_URL);
 
 
 
@@ -27,17 +30,16 @@ public class UserCRUD extends AbstractWebEnpoints {
 
     protected static ValidatableResponse getUserById(String userId, Integer status) { //move to UserCRUD
         LOG.info("Get user by ID: " + userId);
-        RequestSpecification spec = getReqSpec();
+        //RequestSpecification spec = requestSpecification;
         return get( //provide response
-                spec, getUsersUrl(), userId)
+                requestSpecification, USERS_URL_ENDPOINT, userId)
                 .statusCode(status);
     }
 
     public static ValidatableResponse createUser(UserDTO userDTO, Integer status) {
         LOG.info("Create new user with name: " + userDTO.getName());
-        RequestSpecification spec = getReqSpec();
-        return post(spec,
-                getUsersUrl(),
+        return post(requestSpecification,
+                USERS_URL_ENDPOINT,
                 userDTO)
                 .assertThat()
                 .statusCode(status);
@@ -50,9 +52,8 @@ public class UserCRUD extends AbstractWebEnpoints {
 
     public static ValidatableResponse updateUser(UserDTO userDTO, String id, Integer status){
         LOG.info("Update user with id: " + id);
-        RequestSpecification spec = getReqSpec();
-        return put(spec,
-                getUsersUrl(),
+        return put(requestSpecification,
+                USERS_URL_ENDPOINT,
                 id,
                 userDTO)
                 .assertThat()
@@ -70,15 +71,14 @@ public class UserCRUD extends AbstractWebEnpoints {
     }
 
     public static ValidatableResponse getAll (RequestSpecification reqSpecBuild, Integer status){
-        return getAllList(reqSpecBuild,
-                getUsersUrl())
+        return getAllList(requestSpecification,
+                USERS_URL_ENDPOINT)
                 .assertThat()
                 .statusCode(status);
     }
 
     public static List <UserDTO> getAll(){
-        RequestSpecification spec = getReqSpec();
-        return Arrays.asList(getAll(spec, HTTPStatusList.OK)
+        return Arrays.asList(getAll(requestSpecification, HTTPStatusList.OK)
                 .extract().as(UserDTO[].class));
 
     }
