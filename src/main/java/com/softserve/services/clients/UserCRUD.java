@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 import java.util.Arrays;
 import java.util.List;
 
-import static io.restassured.RestAssured.given;
 
 public class UserCRUD extends AbstractWebEnpoints {
     private static final Logger LOG = LogManager.getLogger(UserCRUD.class);
