@@ -2,6 +2,9 @@
   "jsonPlaceholder" : {
     "baseUrl" : "https://jsonplaceholder.typicode.com/"
   },
+  "webui": {
+    "baseUrl": "https://www.saucedemo.com/"
+  },
   "Login": {
     "Admin" : "Password1"
   }

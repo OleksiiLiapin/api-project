@@ -35,6 +35,10 @@ public class MavenProperties {
         return getMavenProperties().getProperty("execution_env");
     }
 
+    public String getBrowserConfig(){
+        return getMavenProperties().getProperty("browser");
+    }
+
 
 
 
