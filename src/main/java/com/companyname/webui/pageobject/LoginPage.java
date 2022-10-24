@@ -9,12 +9,12 @@ import org.openqa.selenium.WebElement;
 
 public class LoginPage extends BasePage {
     private static final Logger LOGGER = LogManager.getLogger(LoginPage.class);
-    private static LoginPage loginPage;
-
+    private LoginPage loginPage = null;
+    //protected WebDriver driver;
 
     public LoginPage() {
         super();
-        System.out.println("Constructor from LoginPage");
+        driver.get(getURL());
     }
 
 
@@ -40,15 +40,14 @@ public class LoginPage extends BasePage {
         return driver.findElement(errorLogin).getText();
     }
 
-    public static void login_End_to_End(String userName, String passwords){
-        loginPage = new LoginPage();
+
+    public void login(String userName, String passwords){
         loginPage.getUserName().sendKeys(userName);
         LOGGER.info("user name entered");
         loginPage.getPassword().sendKeys(passwords);
         LOGGER.info("password entered");
         loginPage.getLoginBtn().click();
         LOGGER.info("login button clicked");
-
     }
 
 }
